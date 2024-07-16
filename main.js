@@ -7,7 +7,7 @@ let endIdx = '20';
 let recipes = []
 
 // 전체 레시피 url
-let url_object = new URL(`http://openapi.foodsafetykorea.go.kr/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}`);
+let url_object = new URL(`https://openapi.foodsafetykorea.go.kr/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}`);
 
 // 전체 레시피 데이터를 가져오는 함수
 const getRecipes = async() => {
@@ -26,7 +26,7 @@ const getRecipes = async() => {
 // 특정 레시피 데이터를 가져오는 함수
 let recipeName = '된장국'
 const getRecipesName = async() => {
-    url_object = new URL(`http://openapi.foodsafetykorea.go.kr/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}/RCP_NM=${recipeName}`);
+    url_object = new URL(`https://openapi.foodsafetykorea.go.kr/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}/RCP_NM=${recipeName}`);
     await getRecipes()
 }
 
