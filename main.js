@@ -6,34 +6,49 @@ let endIdx = '20';
 
 let recipes = []
 
-// 전체 레시피 url
-
-
-// 전체 레시피 데이터를 가져오는 함수
+// 프록시 URL을 사용하여 전체 레시피 데이터를 가져오는 함수
 const getRecipes = async() => {
-    const url_object = `/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}`; // 프록시 URL로 변경
-    const response = await fetch(url_object)
-    const data = await response.json()
-    console.log("data 결과 : ", data)
+    const url = `/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}`; // 프록시 URL로 변경
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log("data 결과 : ", data);
 
-    total_count = data.COOKRCP01.total_count
-    console.log("total_count 결과 : ", total_count)
+        const total_count = data.COOKRCP01.total_count;
+        console.log("total_count 결과 : ", total_count);
 
-    recipes = data.COOKRCP01.row        // recipes 자주 변경될 요소이므로, 코드 상단에 전역변수로 선언한다.
-    console.log("recipes 결과", recipes)
+        recipes = data.COOKRCP01.row; // recipes 자주 변경될 요소이므로, 코드 상단에 전역변수로 선언한다.
+        console.log("recipes 결과", recipes);
+    } catch (error) {
+        console.error('Failed to fetch', error);
+    }
 }
-
 
 // 특정 레시피 데이터를 가져오는 함수
-let recipeName = '된장국'
+let recipeName = '된장국';
 const getRecipesName = async() => {
-    const url_object = `/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}/RCP_NM=${recipeName}`; // 프록시 URL로 변경
-    await getRecipes()
+    const url = `/api/${API_KEY}/${serviceId}/${dataType}/${startIdx}/${endIdx}/RCP_NM=${recipeName}`; // 프록시 URL로 변경
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log("data 결과 : ", data);
+
+        const total_count = data.COOKRCP01.total_count;
+        console.log("total_count 결과 : ", total_count);
+
+        recipes = data.COOKRCP01.row; // recipes 자주 변경될 요소이므로, 코드 상단에 전역변수로 선언한다.
+        console.log("recipes 결과", recipes);
+    } catch (error) {
+        console.error('Failed to fetch', error);
+    }
 }
 
-
-getRecipes()
-// getRecipesName()
-
-
-
+// Call the function to fetch recipes
+getRecipes();
+// getRecipesName();
